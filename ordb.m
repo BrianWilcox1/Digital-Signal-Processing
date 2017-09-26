@@ -1,0 +1,11 @@
+function [M,fc,fcl,fch,K,eta] = ordb(fp,fs,R,A) %%codegen
+OmegaP = 2*tan(pi*fp);
+OmegaS = 2*tan(pi*fs);
+K = OmegaS/OmegaP;
+epsilon = sqrt(10^(R/10)-1);
+delta = sqrt(10^(A/10)-1);
+eta = delta/epsilon;
+M = ceil(log(eta)/log(K));
+fcl= 1/pi*atan(.5*(OmegaP/(epsilon^(1/M))));
+fch= 1/pi*atan(.5*(OmegaS/(delta^(1/M))));
+fc=(fcl+fch)/2;
